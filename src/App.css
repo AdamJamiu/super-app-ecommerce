@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.sidebar-app::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.sidebar-app::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: transparent;
+}
+
+/* Handle */
+.sidebar-app::-webkit-scrollbar-thumb {
+    /* -webkit-border-radius: 10px; */
+    border-radius: 10px;
+    background: #d9d9d9;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); */
+}
+
+*,
+body,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'satoshi', sans-serif; */
+    scroll-behavior: smooth;
+}
+
+.scroller{
+    scrollbar-width: thin !important;
+}
+
+.active-link {
+    display: flex;
+    justify-content: stretch;
+    width: max-content;
+    align-items: center;
+    color: #8F2F30;
+    gap: 0.5em;
+}
+
+.active-link:hover {
+    color: #8F2F30;
+    width: max-content;
+}
+
+.inactive-link {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    color: #494949;
+    gap: .5em;
+    width: max-content;
+}
+
+/* mui blue color outline */
+.auth-input:active,
+.auth-input:focus {
+    outline: 2px solid #1976d2;
+}
+
+.card-wrap .love-icon {
+    display: none !important;
+}
+
+.card-wrap:hover .love-icon {
+    display: block !important;
+}
+
+.pop-in-container {
+    opacity: 0;
+    /* Start with the container fully transparent */
+    transform: scale(0.5);
+    /* Start with the container scaled down */
+    animation: popIn 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        /* Start with opacity 0 (fully transparent) */
+        transform: scale(0.5);
+        /* Start with the container scaled down */
+    }
+
+    100% {
+        opacity: 1;
+        /* End with opacity 1 (fully visible) */
+        transform: scale(1);
+        /* End with the container at its original scale */
+    }
+}
+
+.search-btn{
+    background-repeat: no-repeat;
+    background-position: 50%;
+    color: #fff;
+    background-image: -webkit-gradient(linear,left top,right top,from(#ff7e3e),to(#ff4000));
+    background-image: -webkit-linear-gradient(left,#ff7e3e,#ff4000);
+    background-image: -o-linear-gradient(left,#ff7e3e 0,#ff4000 100%);
+    background-image: linear-gradient(90deg,#ff7e3e,#ff4000);
+    border-radius: 0 6px 6px 0;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }

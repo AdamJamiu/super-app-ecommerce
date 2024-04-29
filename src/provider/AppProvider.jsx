@@ -1,29 +1,32 @@
 import { createContext, useContext, useState } from "react";
 
-export const AppProvider = createContext();
+export const AppContext = createContext();
 
-export const AppContext = ({ children }) => {
-    const [cartLength, setCartLength] = useState(0);
-    const [isSignedInModal, setIsSignednInModal] = useState(false); // signon modal open
-    // let isSignedInModal = false;
+export const AppProvider = ({ children }) => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartLength, setCartLength] = useState(0);
+  const [isSignedInModal, setIsSignednInModal] = useState(false); // signon modal open
+  // let isSignedInModal = false;
 
-    const handleSignInOpen = () => setIsSignednInModal(true);
-    const handleSignInClose = () => setIsSignednInModal(false);
+  const handleOpenCart = () => setIsCartOpen(true);
+  const handleCloseCart = () => setIsCartOpen(false);
 
-    const values = {
-        cartLength,
-        setCartLength,
-        isSignedInModal,
-        setIsSignednInModal,
-        handleSignInOpen,
-        handleSignInClose
-    }
+  const handleSignInOpen = () => setIsSignednInModal(true);
+  const handleSignInClose = () => setIsSignednInModal(false);
 
-    return (
-        <AppProvider.Provider value={values}>
-            {children}
-        </AppProvider.Provider>
-    );
-}
+  const values = {
+    cartLength,
+    setCartLength,
+    isSignedInModal,
+    setIsSignednInModal,
+    handleSignInOpen,
+    handleSignInClose,
+    isCartOpen,
+    handleCloseCart,
+    handleOpenCart,
+  };
+
+  return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
+};
 
 export const useAppContext = () => useContext(AppProvider);

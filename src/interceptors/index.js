@@ -3,6 +3,13 @@ import { toast } from "react-toastify";
 
 const baseURL = import.meta.env.VITE_SUPER_APP_BASE_URL;
 
+const clientHttp = axios.create({
+  baseURL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const httpClient = axios.create({
   baseURL,
   headers: {
@@ -12,14 +19,17 @@ export const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   async (config) => {
-    const token = localStorage.getItem("csp_super_app_token");
+    const { accessToken, refreshToken } = JSON.parse(
+      sessionStorage.getItem("super_app_user_details")
+    );
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    if (!token) {
-      localStorage.clear();
+    if (!accessToken) {
+      sessionStorage.removeItem("super_app_user_details");
       window.location.reload();
+      window.location.href = "/login";
     }
 
     return config;
@@ -34,15 +44,40 @@ httpClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error?.response?.status === 401) {
-      localStorage.clear();
-      window.location.reload;
+      // sessionStorage.clear();
+      // window.location.reload;
+      const { accessToken, refreshToken } = JSON.parse(
+        sessionStorage.getItem("super_app_user_details")
+      );
+
+      if (!accessToken || !refreshToken) {
+        sessionStorage.removeItem("super_app_user_details");
+        window.location.reload();
+        window.location.href = "/login";
+      } else {
+        async function handleRefreshToken() {
+          clientHttp
+            .post("Authentication/RefreshToken", {
+              accessToken,
+              refreshToken,
+            })
+            .then((res) => {
+              console.log(res, "refresh token response");
+            })
+            .catch((err) => {
+              console.log(err, "refresh token error");
+            });
+        }
+
+        handleRefreshToken();
+      }
     }
-    if (error?.response?.status === 403) {
-      toast("You don't have permission to perform this action", {
-        type: "error",
-        toastId: "clientError",
-      });
-    }
+    // if (error?.response?.status === 403) {
+    //   toast("You don't have permission to perform this action", {
+    //     type: "error",
+    //     toastId: "clientError",
+    //   });
+    // }
     if (error.response.status === 500) {
       toast("Something went wrong", {
         type: "error",

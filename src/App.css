@@ -130,3 +130,28 @@ html {
     height: 100%;
     object-fit: cover;
   }
+
+
+  @media screen and (min-width: 480px) {
+    ::-webkit-scrollbar {
+        width: 20px;
+        background: #F9FAFA;
+        border-right: 3px;
+    }
+
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F9FAFA;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #a7abbf;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #969aac;
+}
